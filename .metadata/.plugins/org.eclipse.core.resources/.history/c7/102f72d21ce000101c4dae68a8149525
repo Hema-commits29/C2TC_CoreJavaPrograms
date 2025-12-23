@@ -1,0 +1,10 @@
+package tnsif_d5;
+
+public class CheckingNumbers {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

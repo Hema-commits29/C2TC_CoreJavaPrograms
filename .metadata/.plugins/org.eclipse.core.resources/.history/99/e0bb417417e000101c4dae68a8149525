@@ -1,0 +1,18 @@
+package tnsif_d3;
+
+public class ExecutorExercise {
+
+	public static void main(String[] args) {
+		ExecutorExercise ex = new ExecutorExercise();
+		ex.setName("Alix");
+		ex.setAge(25);
+		ex.setSalary(50000);
+		System.out.println(ex);
+		
+//		e = new Executor();
+//		System.out.println(e);
+
+	}
+
+
+}

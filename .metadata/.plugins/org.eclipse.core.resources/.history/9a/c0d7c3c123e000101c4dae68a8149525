@@ -1,0 +1,10 @@
+package exceptionhandling_d7;
+
+public class NoExceptionHandling {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

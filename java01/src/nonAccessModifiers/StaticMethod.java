@@ -1,0 +1,27 @@
+package nonAccessModifiers;
+
+public class StaticMethod {
+	
+	static int a;
+	static int b;
+	
+	static {
+		a = 20;
+		b = 30;
+		
+		System.out.println("Static block executed.");
+	}
+	
+	static void display() {
+		System.out.println("Displaying the static value of b:" +b);
+	}
+
+	public static void main(String[] args) {
+		
+		System.out.println("Showing the main method.");
+		display();
+
+		
+	}
+
+}

@@ -1,0 +1,24 @@
+package nonAccessModifiers;
+
+abstract class Colors{
+	abstract void paint();
+}
+
+class Blue extends Colors{
+	void paint() {
+		System.out.println("The wall is in the blue color.");
+	}
+}
+
+public class Abstraction {
+
+	public static void main(String[] args) {
+		
+		Blue b = new Blue();
+		b.paint();
+
+	
+
+	}
+
+}

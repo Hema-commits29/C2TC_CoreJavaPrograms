@@ -1,0 +1,28 @@
+package exceptionhandling_d7;
+
+public class TryCatchExercise {
+
+	public static void main(String[] args) {
+		
+		try {
+			int[] arr = new int[5];
+			
+			//ArrayIndexOutofBound Exception
+			System.out.println(arr[10]);
+			
+			//Arithmetic Exception
+			int result = 16/0;
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Array index is out of bounds:" +e.getMessage());
+		}
+		catch(ArithmeticException e) {
+			System.out.println("Cannot be divided by 0:" +e.getMessage());
+		}
+		
+		
+	}
+	
+
+
+}
