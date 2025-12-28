@@ -15,6 +15,8 @@ Scanner sc = new Scanner(System.in);
 		String hero = sc.nextLine();
 		
 		System.out.println("My favourite movie is:" +movie +  "\nMy favourite hero is:" +hero);
+		
+		sc.close();
 
 	
 	}
