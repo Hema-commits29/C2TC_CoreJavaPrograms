@@ -1,0 +1,62 @@
+package multithreading02;
+
+
+class Table{
+	
+	synchronized void printTable(int num) {
+		
+		System.out.println("Table of" +num + ":");
+		for(int i=1; i<=5; i++) {
+			
+			System.out.println(num + "x" + i + " = "+ (num*i));
+			try {
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e) {
+				System.out.println(e);
+			}
+		}
+	}
+}
+
+class Table9Thread extends Thread{
+	
+	Table t;
+	
+	Table9Thread(Table t){
+		this.t = t;
+	}
+	
+	public void run() {
+		t.printTable(9);
+	}
+
+}
+
+class Table13Thread extends Thread{
+	Table t;
+	
+	Table13Thread(Table t){
+		this.t = t;
+	}
+	
+	public void run() {
+		t.printTable(13);
+	}
+
+}
+public class Synchronization {
+
+	public static void main(String[] args) {
+		
+		Table tb = new Table();
+		
+		Table9Thread t1= new Table9Thread(tb);
+		Table13Thread t2= new Table13Thread(tb);
+		
+		t1.start();
+		t2.start();
+
+	}
+
+}

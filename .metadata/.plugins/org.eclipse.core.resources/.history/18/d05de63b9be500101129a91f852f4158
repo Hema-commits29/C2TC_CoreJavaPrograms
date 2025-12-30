@@ -1,0 +1,38 @@
+package multithreading_runnableinterface;
+
+public class RunnableExercise implements Runnable {
+	
+	int availableTickets = 3;
+	
+	public void run() {
+        synchronized (this) {
+            if (availableTickets > 0) {
+                System.out.println(Thread.currentThread().getName() + " booked 1 ticket");
+                availableTickets--;
+            } else {
+                System.out.println(Thread.currentThread().getName() + " ticket not available");
+            }
+        }
+        
+	}
+
+	public static void main(String[] args) {
+
+	        RunnableExercise re = new RunnableExercise();
+
+	        Thread user1 = new Thread(re, "User-1");
+	        Thread user2 = new Thread(re, "User-2");
+	        Thread user3 = new Thread(re, "User-3");
+	        Thread user4 = new Thread(re, "User-4");
+
+	        user1.start();
+	        user2.start();
+	        user3.start();
+	        user4.start();
+	
+		
+		
+
+	}
+
+}

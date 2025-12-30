@@ -1,0 +1,59 @@
+package multithreading_runnableinterface;
+
+// Shared Resource
+class AccountBalance {
+    private int balance = 2000;
+
+    synchronized void withdraw(int amount) {
+        System.out.println(Thread.currentThread().getName()
+                + " is trying to withdraw ₹" + amount);
+
+        if (balance >= amount) {
+            System.out.println("Sufficient balance. Processing...");
+
+            try {
+                Thread.sleep(2000); 
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+
+            balance -= amount;
+            System.out.println("Withdrawal successful!");
+            System.out.println("Remaining balance: ₹" + balance);
+        } else {
+            System.out.println("Insufficient balance!");
+        }
+    }
+}
+
+
+class Customer extends Thread {
+    AccountBalance account;
+    int amount;
+
+    Customer(AccountBalance account, int amount, String name) {
+        this.account = account;
+        this.amount = amount;
+        setName(name);
+    }
+
+    public void run() {
+        account.withdraw(amount);
+    }
+}
+
+
+public class RunnableExercise {
+    public static void main(String[] args) {
+        AccountBalance account = new AccountBalance();
+
+        Customer c1 = new Customer(account, 1000, "Customer-1");
+        Customer c2 = new Customer(account, 5000, "Customer-2");
+
+        c1.start();
+        c2.start();
+    }
+    
+}
+
+
