@@ -1,0 +1,64 @@
+package collection;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class product {
+    int Productid;
+    String Productname;
+    double price;
+
+    product(int id, String name, double price) {
+        this.Productid = id;
+		this.Productname = name;
+        this.price = price;
+    }
+
+    void display() {
+        System.out.println(Productid + "  " + Productname + "  ₹" + price);
+    }
+}
+
+public class ArrayListDemo {
+    public static void main(String[] args) {
+
+        ArrayList<product> product = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        product.add(new product(41, "iPhone 17", 150000.00));
+        product.add(new product(42, "Dell Laptop", 72000));
+        product.add(new product(43, "Smart Watch", 3500));
+
+        System.out.println("Id Name Price");
+        for (Object label : product) {
+            ((collection.product) label).display();
+        }
+
+        //System.out.println("Enter product ID to search:");
+        
+        /*int searchId = sc.nextInt();
+
+        boolean found = false;
+        for (collection.product label : product) {
+            if (label.Productid == searchId) {
+                System.out.println("Product found");
+                label.display();
+                found = true;
+                break;
+            }
+        }*/
+        
+        int removeId = 42;
+
+        boolean removed = product.removeIf(p -> p.Productid == removeId);
+
+        if (removed) {
+            System.out.println("Product removed successfully");
+        } 
+        //else {
+            //System.out.println("Product not found");
+        //}
+        
+        sc.close();
+    }
+}
+
