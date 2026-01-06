@@ -1,0 +1,59 @@
+package collections2;
+
+//import java.util.Collections;
+import java.util.HashSet;
+import java.util.Spliterator;
+
+public class HashSetRef {
+
+	static void addElements(HashSet<Integer> Set1) {
+		Set1.add(17);
+		Set1.add(46);
+		Set1.add(88);
+		Set1.add(51);
+		Set1.add(96);
+		Set1.add(20);
+		Set1.add(29);
+		System.out.println(Set1.add(51)); //returns false - not allow to insert duplicate element
+	}
+
+	public static void main(String[] args) {
+		
+		HashSet<Integer> Set1 = new HashSet<Integer>();
+		addElements(Set1);
+
+		HashSet<Integer> Set2 = new HashSet<Integer>();
+		Set2.add(20);
+	    Set2.add(88);
+		Set2.add(19);
+	    Set2.add(51);
+		Set2.add(16);
+		Set2.add(10);
+		Set2.add(50);
+
+		System.out.println("Set 1: " + Set1);
+		System.out.println("Set 2: " + Set2);
+
+		HashSet<Integer> Set3 = new HashSet<Integer>();
+		addElements(Set3);
+
+		Set3.addAll(Set1);
+		System.out.println("Resultant Set : " + Set3);
+
+	    Set3.clear();
+		addElements(Set3);
+	
+		Set3.retainAll(Set2);
+		System.out.println("Resultant Set : " + Set3);
+
+		Set3.clear();
+		addElements(Set3);
+
+		Set3.removeAll(Set1);
+		System.out.println("Resultant Set : " + Set3);
+
+		Spliterator<Integer> split= Set1.spliterator();
+		split.forEachRemaining(System.out::println);
+	}
+
+}

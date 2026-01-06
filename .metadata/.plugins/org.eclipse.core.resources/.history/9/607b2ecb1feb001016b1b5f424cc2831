@@ -1,0 +1,39 @@
+package collection;
+
+import java.util.Iterator;
+import java.util.Vector;
+
+
+/*class TextEditor{
+	
+	private Vector<String> hello = new Vector<>();
+	private int currentValue = 12;
+}*/
+public class VectorExample {
+
+	//private static char[] ;
+
+	public static void main(String[] args) {
+		
+		Vector<String> hello  = new Vector<>();
+		hello.add("Hema");
+		hello.capacity();
+		hello.add(3, "Sachh");
+		hello.add("Vishh");
+		hello.add(2, "Ritsss");
+		
+		System.out.println(hello.size());
+		
+		String nick = hello.firstElement();
+		System.out.println("The element in the first index is:" +hello.get(5));
+		
+		Iterator <String> hsri = hello.iterator();
+		for(int i=0; i<hello.size(); i++) {
+			String element = hello.get(i);
+			System.out.println(element);
+			
+		}
+
+	}
+
+}

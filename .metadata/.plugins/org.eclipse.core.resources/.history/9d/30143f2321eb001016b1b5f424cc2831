@@ -1,0 +1,37 @@
+package collection;
+
+import java.util.*;
+//import java.util.Vector;
+
+public class VectorExample {
+
+	public static void main(String[] args) {
+		
+		Vector<String> hello  = new Vector<>();
+		hello.add("Hema");
+		//hello.capacity();
+		hello.add("Sachh");
+		hello.add("Vishh");
+		hello.add("Ritsss");
+		
+		System.out.println(hello.size());
+		
+		
+		Iterator <String> hsri = hello.iterator();
+		
+		System.out.println("Vector elements:");
+		while(hsri.hasNext()) {
+			
+			System.out.println(hsri.next());
+		}
+		
+		String idea = "Sachh";
+		if(hello.contains(idea)) {
+			System.out.println("Vector contains the element of:" +idea);
+			
+		}
+		System.out.println("The final vector elements are:" +hello);
+		
+	}
+
+}

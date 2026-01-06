@@ -1,0 +1,52 @@
+package collection;
+
+import java.util.Iterator;
+import java.util.Vector;
+
+
+/*class TextEditor{
+	
+	private Vector<String> hello = new Vector<>();
+	private int currentValue = 12;
+}*/
+public class VectorExample {
+
+	public static void main(String[] args) {
+		
+		Vector<String> hello  = new Vector<>();
+		hello.add("Hema");
+		//hello.capacity();
+		hello.add(3, "Sachh");
+		hello.add("Vishh");
+		hello.add(2, "Ritsss");
+		
+		System.out.println(hello.size());
+		
+		/*String nick = hello.firstElement();
+		System.out.println("The element in the first index is:" +hello.get(4));*/
+		
+		Iterator <String> hsri = hello.iterator();
+		
+		System.out.println("Vector elements:");
+		while(hsri.hasNext()) {
+			//String element = hsri.next();
+			System.out.println(hsri.next());
+		}
+		
+		String idea = "Sachh";
+		if(hello.contains(idea)) {
+			System.out.println("Vector contains the element of:" +idea);
+			
+		}/*else {
+			System.out.println("Vector does not contain that element....");
+		}*/
+		
+		System.out.println("The final vector elements are:" +hello.size());
+		
+		/*while(hsri.hasNext()) {
+			System.out.println(hsri.next());
+		}*/
+
+	}
+
+}

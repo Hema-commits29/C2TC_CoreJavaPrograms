@@ -1,0 +1,23 @@
+package collection;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.ListIterator;
+
+
+public class LinkedListDemo {
+
+	public static void main(String[] args) {
+		LinkedList<String> sr = new LinkedList<>();
+		sr.add("Rizwan");
+		sr.add(3, "Zoya");
+		sr.addFirst("Ambithagujalambal");
+		sr.add("Carlmaxx");
+		sr.add(4, "Abi");
+		sr.addLast("Anusuya");
+		
+		System.out.println("The size of the list is:" +sr.element());
+
+	}
+
+}
