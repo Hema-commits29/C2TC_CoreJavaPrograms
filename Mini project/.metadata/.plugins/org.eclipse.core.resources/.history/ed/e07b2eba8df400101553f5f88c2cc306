@@ -1,0 +1,184 @@
+package tnsif_fooddeliveryapp;
+
+import java.util.*;
+
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static Admin admin = new Admin();
+    static List<Order> orders = new ArrayList<>();
+    static int orderCounter = 1;
+    static Customer customer = null;
+
+    public static void main(String[] args) throws Exception {
+        while (true) {
+            System.out.println("\n1. Create Customer\n2. View Restaurants\n3. Add to Cart\n4. Place Order\n5. View Orders\n6. Exit");
+            int ch = sc.nextInt();
+            sc.nextLine();
+            switch (ch) {
+                case 1:
+                    System.out.print("Enter User ID: ");
+                    int id = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Enter Username: ");
+                    String name = sc.nextLine();
+                    System.out.print("Enter Contact No: ");
+                    long contact = sc.nextLong();
+                    sc.nextLine();
+                    System.out.println("Enter Address Details");
+                    System.out.print("Enter Door No: ");
+                    String doorNo = sc.nextLine();
+                    System.out.print("Enter Street Name: ");
+                    String streetName = sc.nextLine();
+                    System.out.print("Enter Pincode: ");
+                    int pincode = sc.nextInt();
+                    sc.nextLine();
+                    Address address = new Address(pincode, streetName, doorNo);
+                    System.out.println("Address Saved:");
+                    System.out.println(address);
+                    customer = new Customer(id, name, contact, address);
+                    System.out.println("Customer created successfully!");
+                    break;
+                case 2:
+                    admin.initRestaurants();
+                    System.out.println("Seems like you are Craving, We Think You need to have Something.");
+                    System.out.println("Here the Restaurants for you :");
+                    admin.restaurant.forEach(v -> System.out.println(v.getId() + ". " + v.getName()));
+                    System.out.print("Enter restaurant ID: ");
+                    int vid = sc.nextInt();
+                    sc.nextLine();
+                    Restaurant selected = admin.restaurant.stream()
+                            .filter(v -> v.getId() == vid)
+                            .findFirst()
+                            .orElse(null);
+                    if (selected != null) {
+                        System.out.println("Menu of " + selected.getName() + ":");
+                        selected.getMenu().forEach(System.out::println);
+                        boolean addMore = true;
+                        while (addMore) {
+                            System.out.print("Enter food item name to add to cart: ");
+                            String itemName = sc.nextLine();
+                            FoodItem item = selected.getMenu().stream()
+                                    .filter(food -> food.getName().equals(itemName))
+                                    .findFirst()
+                                    .orElse(null);
+                            if (item != null && customer != null) {
+                                System.out.print("Enter quantity: ");
+                                int quantity = sc.nextInt();
+                                sc.nextLine();
+                                if (customer.getCart().getItems().containsKey(item)) {
+                                    customer.getCart().addItem(item, customer.getCart().getItems().get(item) + quantity);
+                                } else {
+                                    customer.getCart().addItem(item, quantity);
+                                }
+                                System.out.println("Added to cart!");
+                            }
+                            System.out.println("\n1. Add another food to cart\n2. View cart and place order");
+                            System.out.print("Enter choice: ");
+                            int choice = sc.nextInt();
+                            sc.nextLine();
+                            if (choice == 2) {
+                                addMore = false;
+                            }
+                        }
+                        if (customer != null && !customer.getCart().getItems().isEmpty()) {
+                            System.out.println("Your Cart:");
+                            double grandTotal = 0;
+                            for (Map.Entry<FoodItem, Integer> entry : customer.getCart().getItems().entrySet()) {
+                                FoodItem food = entry.getKey();
+                                int qty = entry.getValue();
+                                double subTotal = food.getFinalPrice() * qty;
+                                grandTotal += subTotal;
+                                System.out.println(food.getName() + " x " + qty + " | Price: " + subTotal);
+                            }
+                            System.out.println("Grand Total: Rs." + grandTotal);
+                            System.out.println("\n1. Place order\n2. Cancel");
+                            System.out.print("Enter choice: ");
+                            int orderChoice = sc.nextInt();
+                            sc.nextLine();
+                            if (orderChoice == 1) {
+                                Order order = new Order(orderCounter++, customer, new HashMap<>(customer.getCart().getItems()));
+                                orders.add(order);
+                                customer.getCart().clearCart();
+                                System.out.println("Order placed!");
+                            } else {
+                                customer.getCart().clearCart();
+                                System.out.println("Order cancelled!");
+                            }
+                        } else {
+                            System.out.println("Cart is empty!");
+                        }
+                    } else {
+                        System.out.println("Restaurant not found!");
+                    }
+                    break;
+                case 3:
+                    if (customer != null && !customer.getCart().getItems().isEmpty()) {
+                        System.out.println("\n--- Your Cart ---");
+                        double grandTotal = 0;
+                        for (Map.Entry<FoodItem, Integer> entry : customer.getCart().getItems().entrySet()) {
+                            FoodItem food = entry.getKey();
+                            int qty = entry.getValue();
+                            double subTotal = food.getFinalPrice() * qty;
+                            grandTotal += subTotal;
+                            System.out.println(food.getName() + " x " + qty + " | Price: " + subTotal);
+                        }
+                        System.out.println("Grand Total: Rs." + grandTotal);
+                    } else {
+                        System.out.println(">> Cart is empty or Customer not created.");
+                    }
+                    break;
+                case 4:
+                    if (customer != null && !customer.getCart().getItems().isEmpty()) {
+                        System.out.println("\n--- Finalizing Order ---");
+                        double grandTotal = 0;
+                        for (Map.Entry<FoodItem, Integer> entry : customer.getCart().getItems().entrySet()) {
+                            grandTotal += entry.getKey().getFinalPrice() * entry.getValue();
+                        }
+                        System.out.println("Total Bill Amount: Rs." + grandTotal);
+                        System.out.println("1. Confirm Order\n2. Cancel");
+                        int confirm = sc.nextInt();
+                        sc.nextLine();
+                        if (confirm == 1) {
+                            Order order = new Order(orderCounter++, customer, new HashMap<>(customer.getCart().getItems()));
+                            orders.add(order);
+                            customer.getCart().clearCart();
+                            System.out.println(">> Order Placed Successfully! Order ID: " + order.getOrderId());
+                        } else {
+                            System.out.println(">> Order Cancelled.");
+                        }
+                    } else {
+                        System.out.println(">> Cart is empty. Add items first.");
+                    }
+                    break;
+                case 5:
+                    if (orders.isEmpty()) {
+                        System.out.println(">> No orders placed yet!");
+                    } else {
+                        System.out.println("\n--- Order History ---");
+                        for (Order order : orders) {
+                            System.out.println("Order ID: " + order.getOrderId() + " | Customer: " + order.getCustomer().getUsername() + " | ETA: 50 mins");
+                            double totalCash = 0;
+                            for (Map.Entry<FoodItem, Integer> entry : order.getItems().entrySet()) {
+                                FoodItem item = entry.getKey();
+                                int qty = entry.getValue();
+                                double subTotal = item.getFinalPrice() * qty;
+                                totalCash += subTotal;
+                                System.out.println("\t- " + item.getName() + " x " + qty + " = Rs." + subTotal);
+                            }
+                            System.out.println("Total Amount: Rs." + totalCash);
+                            DeliveryPerson dp1 = new DeliveryPerson(1, "Santhosh E", 8610086905l);
+                            System.out.println("Delivery By: " + dp1.getName() + " (" + dp1.getContactNo() + ")");
+                            System.out.println("------------------------------------------------");
+                        }
+                    }
+                    break;
+                case 6:
+                    System.out.println("Thank You for using the App!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid Choice!");
+            }
+        }
+    }
+}

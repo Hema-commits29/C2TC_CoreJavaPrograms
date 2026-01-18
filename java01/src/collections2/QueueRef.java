@@ -1,6 +1,5 @@
 package collections2;
 
-
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Scanner;
